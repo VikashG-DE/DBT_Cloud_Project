@@ -1,0 +1,20 @@
+DBT_Learning_Project:
+  outputs:
+    dev:
+      type: databricks
+      catalog: dev_env
+      host: dbc-10b9cc1d-f2fd.cloud.databricks.com
+      http_path: /sql/1.0/warehouses/e3a99c2381181670
+      schema: default
+      threads: 1
+      token: ''
+  
+    prd:
+      type: databricks
+      catalog: prd_env
+      host: dbc-10b9cc1d-f2fd.cloud.databricks.com
+      http_path: /sql/1.0/warehouses/e3a99c2381181670
+      schema: default
+      threads: 1
+      token: "{{ env_var('DBT_DATABRICKS_TOKEN') }}"
+  target: dev

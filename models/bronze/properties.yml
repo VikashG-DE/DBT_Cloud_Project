@@ -1,0 +1,62 @@
+version: 2
+
+
+models:
+  - name: bronze_date #  Must match the filename of a model -- including case sensitivity.
+    config:
+      materialized: view # other options include: table, incremental, ephemeral , view
+      
+
+  - name: bronze_product #  Must match the filename of a model -- including case sensitivity.
+    config:
+      materialized: view # other options include: table, incremental, ephemeral , view
+      
+     
+  - name: bronze_sales #  Must match the filename of a model -- including case sensitivity.
+    config:
+      materialized: view # other options include: table, incremental, ephemeral , view
+    columns:
+      - name: sales_id
+        description: "The primary key for the sales table."
+        data_tests:
+          - unique
+          - not_null
+      - name: gross_amount
+        description: "The gross amount of the sale."
+        data_tests:
+          - generic_non_negative
+          
+
+  - name: bronze_returns #  Must match the filename of a model -- including case sensitivity.
+    config:
+      materialized: view # other options include: table, incremental, ephemeral , view
+      
+
+  - name: bronze_customer #  Must match the filename of a model -- including case sensitivity.
+    config:
+      materialized: view # other options include: table, incremental, ephemeral , view
+  - name: bronze_store #  Must match the filename of a model -- including case sensitivity.
+    config:
+      materialized: view # other options include: table, incremental, ephemeral , view
+    columns:
+      - name: store_sk
+        description: "The primary key for the sales table."
+        data_tests:
+          - unique
+          - not_null
+      - name: store_name
+        description: "The name of the store."
+        data_tests:
+          - accepted_values:
+                arguments: 
+                    values: ['MegaMart Manhattan', 'MegaMart Brooklyn', 'MegaMart Austin', 'MegaMart San Jose', 'MegaMart Toronto']
+                config:
+                    severity: warn
+      - name: country
+        description: "The country where the store is located."
+        data_tests:
+          - accepted_values:
+                arguments: 
+                    values: ['USA', 'Canada','Mexico']
+                config:
+                    severity: warn        
